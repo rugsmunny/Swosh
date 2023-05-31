@@ -1,0 +1,33 @@
+
+- Delete post / comments
+
+    Post -> tar bort alla kommentarer länkade till den.
+    Comment -> tar enbart bort den egna kommentaren
+
+- Delete account -> tar bort all användardata samt alla inlägg och tillhörande
+    kommentarer samt alla egna kommentarer
+
+ - Fixa så lokal tid visas när posts/comments visas
+
+    Förslag -> ZoneID alt kolla vad användaren har för lokal tid på datorn och sätta
+    tidsskillnaden gentemot den.
+
+    No, there are no direct equivalents of JpaRepository or CrudRepository
+    from Spring in vanilla Java. The JpaRepository and CrudRepository interfaces
+    are part of the Spring Data JPA framework, which provides a convenient way to
+     perform CRUD (Create, Read, Update, Delete) operations on entities in a JPA
+     (Java Persistence API) context.
+
+    In vanilla Java, without any frameworks, you would need to implement the CRUD
+    operations manually by using JDBC (Java Database Connectivity) or other low-level
+    data access libraries. JDBC allows you to interact with a database using SQL queries
+    and handle the mapping of data between the database and Java objects yourself.
+
+    However, if you're looking for a lightweight ORM (Object-Relational Mapping)
+    solution for vanilla Java, you can consider using libraries such as Hibernate
+    or EclipseLink. These libraries provide features similar to Spring Data JPA
+    and offer convenient ways to map Java objects to database tables, perform CRUD
+    operations, and handle complex database interactions.
+
+    Using an ORM library like Hibernate or EclipseLink can help simplify database
+    operations and reduce boilerplate code compared to using JDBC directly.

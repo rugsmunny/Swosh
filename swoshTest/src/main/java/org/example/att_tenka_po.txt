@@ -1,0 +1,134 @@
+-------------------------------------------------------------------------- SQL CREATE
+SQL query för att skapa en tabell med dess kolumner och datatyp
+
+CREATE TABLE users ( id INT PRIMARY KEY AUTO_INCREMENT, name
+VARCHAR(50), email VARCHAR(50), created DATE, online BOOLEAN, phone
+VARCHAR(20), address VARCHAR(100) );
+
+-------------------------------------------------------------------------- Databaskontakt
+    : Connection -> Statement -> String sql Query ->
+
+        -   statement.executeQuery(sql) returnerar ResultSet
+
+        -   statement.executeUpdate(sql) returnerar int ( hur många rader som påverkats )
+
+    -> connection.close() : returnerar databaskoppling/frigör resurser
+
+//Koppla upp mot databasen
+    Connection connection = GetConnection();
+
+//Skapa ett statement object för att köra SQL-querys genom databaskopplingen
+        Statement statement = connection.createStatement();
+
+//Skriv din query som du vill köra mot databasen.
+        String query =
+        "CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(50), email
+         VARCHAR(50), created DATE, online BOOLEAN, phone VARCHAR(20), address VARCHAR(100));";
+
+//Kör SQL-query och returnera resultatet (Antalet påverkade rader returneras)
+
+        int result = statement.executeUpdate(query);
+        System.out.println("Result: " + result);
+
+//Stäng databaskoppling och returnera den till databaspoolen
+        connection.close();
+
+-------------------------------------------------------------------------- SQL INSERT
+
+    INSERT INTO users (id, name, email, created, online, phone, address)
+    VALUES (1, 'Lisa Svensson', 'lisa.svensson@example.com', '2023-04-14',
+    TRUE, '070-1234567', 'Storgatan 1');
+
+--------------------------------------------------------------------------  SQL SELECT
+
+SELECT * FROM users;
+
+SELECT name, address FROM users WHERE online=0 AND created >= CURRENT_DATE;
+
+SELECT id, name as username, email FROM users WHERE online=0 OR address!=null;
+
+--------------------------------------------------------------------------  SQL – GROUP BY + COUNT
+SELECT COUNT(id) as usercount, created FROM users GROUP BY created;
+
+    COUNT(id) räknar antalet rader i en tabell där id-kolumnen är inte-null.
+
+    as usercount'/ 'created' är alias/referens som pekar på det returnerade värdet av antal id:n
+    skapade i tabellen 'users' och när dessa skapades.
+
+    "GROUP BY created" grupperar resultatet baserat på unika värden i kolumnen "created".
+    Skapar en separat grupp för varje unikt datum i kolumnen "created"
+    och räknar sedan antalet rader (eller användare) i varje grupp.
+
+    AVG
+        SELECT AVG(potatis_vikt) FROM rotfrukter WHERE potatis_vikt > 3;
+
+    SUM
+        SELECT SUM(potatis_vikt) FROM rotfrukter WHERE potatis_vikt > 3;
+---------------------------------------------------------------------
+
+SELECT * FROM users ORDER BY created DESC;
+    -   Hämta allt från tabell users och sortera efter kolumn created i minskande ordning
+
+
+SELECT * FROM users ORDER BY created ASC;
+    -   Hämta allt från tabell users och sortera efter kolumn created i ökande ordning
+
+SELECT * FROM users WHERE online=1 ORDER BY created DESC;
+    -   Hämta allt från tabell users DÄR onlinevärdet är lika med 1 (true) sortera efter kolumn created i minskande ordning
+
+---------------------------------------------------------------------
+
+Uppgifter dag 1 : KLAR
+
+
+Uppgifter dag 2 :
+
+1.
+--------------------------------------------------------------------------      KLAR!
+Skapa en databas, lägg till tre tabeller via valfritt databasprogram, därefter
+skapa upp strukturer i tabellerna. Skapa en tabellstruktur för användarkonto, en
+för inlägg och en för kommentarer till inlägg (users, posts, comments). Tänk på
+vilka datakolumner som kan behövas och vilka datatyper som lämpar sig bäst.
+Tänk på id, PRIMARY KEY och AUTO_INCREMENT!
+--------------------------------------------------------------------------      KLAR
+2. ORKA(?)
+Lös samma uppgift som ovan. Nyttja endast SQL-kall i Java. Fyll tabellerna
+med ett tiotal användare, inlägg och kommentarer. Spara!
+--------------------------------------------------------------------------      KLAR?
+3. SKA GÖRA
+(GRIT) – Skapa tabeller, inlägg och kommentarer i Java, men innan tabeller
+läggs till i databasen – kontrollera om tabellen redan existerar. Verifiera att
+användare som äger inlägg och kommentarer existerar innan det sparas till
+databasen.
+--------------------------------------------------------------------------      KLAR?
+
+Uppgifter dag 3 :
+--------------------------------------------------------------------------      KLAR (TYP)
+GÖR!
+Tillse att du lagt till ett tiotal användare, inlägg och kommentarer
+i respektive tabeller users, post och comments.
+--------------------------------------------------------------------------      KLAR (TYP)
+
+
+1.
+Hämta och visa alla användares epostadress som är online. Skriv/visa ut resultatet
+formaterat i exempelvis konsol.
+
+
+2.
+Hämta och visa alla inlägg sorterade efter när dom skapades i fallande datum.
+Skriv/visa ut resultatet formaterat i exempelvis konsol.
+
+
+3.
+Hämta och visa titeln på alla inlägg från användare som inte är online just nu har
+kommenterat på.
+4.
+(Grit) – Hämta antalet inlägg per användare efter ett visst datum med SQL. Returnera
+raderna med alias. Sortera datan efter antalet inlägg i fallande ordning.
+
+--------------------------------------------------------------------------
+
+
+
+

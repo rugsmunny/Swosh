@@ -1,0 +1,58 @@
+1.  Användaren öppnar programmet i konsolen.
+
+2.  Programmet visar en huvudmeny med alternativet "Logga in" (alternativ 1).
+
+3.  Användaren väljer alternativ 1 genom att skriva in "1" och trycka på Enter.
+
+4.  Programmet ber användaren om användarnamn och lösenord.
+
+5.  Användaren skriver in sitt användarnamn och lösenord.
+
+6.  Programmet skapar ett UserBean-objekt och sätter användarnamnet och lösenordet till UserBean-objektets attribut.
+
+7.  Programmet skapar ett UserController-objekt och anropar UserController-metoden login(UserBean user) med UserBean-objektet som argument.
+
+8.  UserController-metoden login(UserBean user) anropar UserRepository-metoden
+    findByUsernameAndPassword(String username, String password) för att hitta användaren i databasen.
+
+9.  UserRepository-metoden findByUsernameAndPassword(String username, String password)
+    ansluter till databasen med hjälp av DatabaseConnection-objektet och hämtar användaren med angivet användarnamn och lösenord.
+
+10. Om användaren hittas returnerar UserRepository-metoden användarobjektet. Annars returnerar den null.
+
+11. UserController-metoden login(UserBean user) får tillbaka användarobjektet från UserRepository-metoden
+    och returnerar det tillbaka till huvudprogrammet.
+
+12. Programmet kontrollerar om användarobjektet är null eller inte.
+    Om användarobjektet är null betyder det att inloggningen misslyckades och programmet
+    visar ett felmeddelande till användaren och går tillbaka till huvudmenyn. Om användarobjektet
+    inte är null betyder det att inloggningen lyckades och programmet går vidare till en annan vy eller
+    funktion som är specifik för inloggade användare.
+
+
+    ______________________________________________________________
+
+    Delete användare och dennes kommentarer samt inlägg:
+
+    DELETE FROM comments
+    WHERE post_id IN (
+      SELECT id
+      FROM posts
+      WHERE user_id = {user_id}
+    );
+
+    DELETE FROM posts
+    WHERE user_id = {user_id};
+
+    DELETE FROM users
+    WHERE id = {user_id};
+
+    Här tar du först bort alla kommentarer som är kopplade till inlägg som
+    skapats av användaren som ska tas bort. Du gör detta med hjälp av en
+    INNER JOIN mellan comments och posts-tabellerna baserat på post_id, och
+    sedan tar bort alla kommentarer som matchar user_id. Därefter tar du bort
+    alla inlägg som skapats av användaren med en enkel DELETE-uttryck som använder
+    user_id som villkor. Slutligen tar du bort själva användaren med en enkel DELETE-uttryck som använder id som villkor.
+
+    Observera att denna query är specifik för ditt användningsfall, och att du behöver
+    byta ut {user_id} mot det faktiska ID-numret för användaren som du vill ta bort.
