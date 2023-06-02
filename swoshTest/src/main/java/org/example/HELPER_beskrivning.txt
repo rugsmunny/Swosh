@@ -1,0 +1,62 @@
+En helper-klass är en klass som innehåller hjälpmetoder och funktioner för att underlätta och organisera
+kodhanteringen i ditt program. Den kan användas för att utföra vanligt förekommande uppgifter som att formatera data,
+validera inmatning eller konvertera mellan olika datatyper.
+
+Här är ett exempel på hur en helper-klass kan användas i samband med en användarmodell (User) och relaterade komponenter:
+
+java
+Copy code
+public class UserHelper {
+
+    public static void saveUserToDatabase(User user) {
+        // Använder UserRepository för att spara användaren i databasen
+        UserRepository userRepository = new UserRepository();
+        userRepository.save(user);
+    }
+
+    public static User getUserFromDatabase(String name) {
+        // Använder UserRepository för att hämta användaren från databasen
+        UserRepository userRepository = new UserRepository();
+        return userRepository.findByUsername(name);
+    }
+
+    public static void displayUser(User user) {
+        // Använder UserView för att visa användarinformationen
+        UserView userView = new UserView();
+        userView.display(user);
+    }
+
+    // Andra hjälpmetoder...
+
+}
+
+I det här exemplet innehåller UserHelper tre hjälpmetoder:
+
+saveUserToDatabase(User user):
+Sparar en användare i databasen genom att anropa save()-metoden i UserRepository.
+
+getUserFromDatabase(String name):
+Hämtar en användare från databasen baserat på namn genom att anropa findByUsername()-metoden i UserRepository.
+
+displayUser(User user):
+Visar användarinformation genom att anropa display()-metoden i UserView.
+Dessa hjälpmetoder underlättar användningen av relaterade komponenter som UserRepository och
+UserView genom att abstrahera bort viss kod och logik till UserHelper.
+Det gör det enklare att lägga till en användare i databasen, hämta en användare och visa användarinformation
+utan att behöva hantera detaljerna i varje komponent direkt.
+
+Du kan använda UserHelper i din applikation genom att anropa dess metoder när
+du behöver utföra relaterade uppgifter med användaren.
+
+Exempelvis:
+
+java
+Copy code
+User user = new User("Alice");
+UserHelper.saveUserToDatabase(user);
+
+User retrievedUser = UserHelper.getUserFromDatabase("Alice");
+UserHelper.displayUser(retrievedUser);
+
+Detta är ett grundläggande exempel och du kan utöka och anpassa UserHelper efter behov för att
+inkludera fler hjälpmetoder som kan vara användbara i ditt program.
